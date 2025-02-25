@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+        h1 { 
+            text-align: center; 
+            color: #333;
+        }
+        input[type='text'] { 
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button { 
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        li { 
+            background: #f8f9fa; 
+            margin: 10px 0; 
+            padding: 10px; 
+            border-radius: 5px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        li input[type='checkbox'] { 
+            margin-right: 10px; 
+        }
+        .remove { 
+            color: red; 
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Compras</h1>
+        <input type="text" id="itemInput" placeholder="Novo item...">
+        <button onclick="adicionarItem()">Adicionar</button>
+        <ul id="lista"></ul>
+    </div>
+    <script>
+        function adicionarItem() {
+            const itemInput = document.getElementById('itemInput');
+            const itemTexto = itemInput.value.trim();
+            if (itemTexto) {
+                const li = document.createElement('li');
+                li.innerHTML = `<input type='checkbox' onclick='riscarItem(this)'> ${itemTexto} <span class='remove' onclick='removerItem(this)'>❌</span>`;
+                document.getElementById('lista').appendChild(li);
+                itemInput.value = '';
+                itemInput.focus();
+            }
+        }
+        function removerItem(elemento) {
+            elemento.parentElement.remove();
+        }
+        function riscarItem(checkbox) {
+            if (checkbox.checked) {
+                checkbox.parentElement.style.textDecoration = 'line-through';
+                checkbox.parentElement.style.color = '#888';
+            } else {
+                checkbox.parentElement.style.textDecoration = 'none';
+                checkbox.parentElement.style.color = '#333';
+            }
+        }
+    </script>
+</body>
+</html>
